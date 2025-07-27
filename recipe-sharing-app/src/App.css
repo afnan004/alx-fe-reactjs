@@ -84,3 +84,65 @@
   min-height: 100vh;
   font-family: Arial, sans-serif;
 }
+/* Search and Filter Styles */
+.search-bar {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.search-bar input {
+  padding: 8px;
+  flex-grow: 1;
+  max-width: 400px;
+}
+
+.filter-select {
+  padding: 8px;
+}
+
+.prep-time-filter {
+  margin-bottom: 15px;
+}
+
+.prep-time-filter input {
+  padding: 5px;
+  margin-left: 10px;
+  width: 60px;
+}
+
+/* Recipe List Styles */
+.recipe-list-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.recipe-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.recipe-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 5px;
+  background: white;
+}
+
+.recipe-card h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.recipe-card a {
+  display: inline-block;
+  margin-top: 10px;
+  color: #0066cc;
+  text-decoration: none;
+}
+
+.recipe-card a:hover {
+  text-decoration: underline;
+}
