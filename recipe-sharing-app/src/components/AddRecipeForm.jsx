@@ -1,66 +1,44 @@
-import { useState } from 'react';
-import useRecipeStore from './recipeStore';
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import useRecipeStore from './recipeStore'
 
 const AddRecipeForm = () => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const addRecipe = useRecipeStore((state) => state.addRecipe);
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const addRecipe = useRecipeStore((state) => state.addRecipe)
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!title.trim() || !description.trim()) return;
-    addRecipe({ title, description });
-    setTitle('');
-    setDescription('');
-  };
+    e.preventDefault()
+    addRecipe({ title, description })
+    navigate('/')
+  }
 
   return (
-    <form onSubmit={handleSubmit} style={{ margin: '20px 0' }}>
-      <div style={{ marginBottom: '10px' }}>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Recipe Title"
-          style={{
-            width: '100%',
-            padding: '10px',
-            border: '1px solid #ddd',
-            borderRadius: '4px'
-          }}
-          required
-        />
-      </div>
-      <div style={{ marginBottom: '10px' }}>
-        <textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="Recipe Description"
-          style={{
-            width: '100%',
-            padding: '10px',
-            border: '1px solid #ddd',
-            borderRadius: '4px',
-            minHeight: '100px'
-          }}
-          required
-        />
-      </div>
-      <button
-        type="submit"
-        style={{
-          padding: '10px 20px',
-          backgroundColor: '#4CAF50',
-          color: 'white',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer'
-        }}
-      >
-        Add Recipe
-      </button>
-    </form>
-  );
-};
+    <div className="recipe-form">
+      <h2>Add New Recipe</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Title:</label>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Description:</label>
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit">Add Recipe</button>
+      </form>
+    </div>
+  )
+}
 
-export default AddRecipeForm;
+export default AddRecipeForm
