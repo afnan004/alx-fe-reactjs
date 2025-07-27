@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import useRecipeStore from './recipeStore'
 import EditRecipeForm from './EditRecipeForm'
+import DeleteRecipeButton from './DeleteRecipeButton'
 
 const RecipeDetails = () => {
   const { id } = useParams()
@@ -10,15 +11,7 @@ const RecipeDetails = () => {
   const recipe = useRecipeStore((state) =>
     state.recipes.find((recipe) => recipe.id === recipeId)
   )
-  const deleteRecipe = useRecipeStore((state) => state.deleteRecipe)
   const navigate = useNavigate()
-
-  const handleDelete = () => {
-    if (window.confirm('Are you sure you want to delete this recipe?')) {
-      deleteRecipe(recipeId)
-      navigate('/')
-    }
-  }
 
   if (!recipe) return <div>Recipe not found</div>
 
@@ -35,7 +28,7 @@ const RecipeDetails = () => {
           <p>{recipe.description}</p>
           <div className="recipe-actions">
             <button onClick={() => setIsEditing(true)}>Edit</button>
-            <button onClick={handleDelete}>Delete</button>
+            <DeleteRecipeButton recipeId={recipeId} />
             <button onClick={() => navigate('/')}>Back to Home</button>
           </div>
         </>

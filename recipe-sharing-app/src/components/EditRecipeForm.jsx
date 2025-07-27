@@ -7,7 +7,7 @@ const EditRecipeForm = ({ recipe, onCancel }) => {
   const updateRecipe = useRecipeStore((state) => state.updateRecipe)
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault() // Added this line to prevent default form submission
     updateRecipe(recipe.id, { title, description })
     onCancel()
   }
