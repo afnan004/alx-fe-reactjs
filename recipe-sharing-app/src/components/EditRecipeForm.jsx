@@ -1,16 +1,17 @@
-import { useState } from 'react'
-import useRecipeStore from './recipeStore'
+import { useState } from 'react';
+import useRecipeStore from '../recipeStore';
 
 const EditRecipeForm = ({ recipe, onCancel }) => {
-  const [title, setTitle] = useState(recipe.title)
-  const [description, setDescription] = useState(recipe.description)
-  const updateRecipe = useRecipeStore((state) => state.updateRecipe)
+  const [title, setTitle] = useState(recipe.title);
+  const [description, setDescription] = useState(recipe.description);
+  const updateRecipe = useRecipeStore((state) => state.updateRecipe);
 
-  const handleSubmit = (e) => {
-    e.preventDefault() // Added this line to prevent default form submission
-    updateRecipe(recipe.id, { title, description })
-    onCancel()
-  }
+  const handleSubmit = (event) => {
+    // Add event.preventDefault() to prevent default form submission
+    event.preventDefault();
+    updateRecipe(recipe.id, { title, description });
+    onCancel();
+  };
 
   return (
     <div className="recipe-form">
@@ -39,7 +40,7 @@ const EditRecipeForm = ({ recipe, onCancel }) => {
         </button>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default EditRecipeForm
+export default EditRecipeForm;
