@@ -2,11 +2,7 @@ import axios from 'axios';
 
 const GITHUB_API_URL = 'https://api.github.com';
 
-/**
- * Fetches detailed information for a specific GitHub user
- * @param {string} username - GitHub username to fetch
- * @returns {Promise<Object|null>} User data or null if not found
- */
+// Maintain existing fetchUserData function from previous tasks
 export const fetchUserData = async (username) => {
   try {
     const response = await axios.get(`${GITHUB_API_URL}/users/${username}`);
@@ -17,19 +13,10 @@ export const fetchUserData = async (username) => {
   }
 };
 
-/**
- * Searches GitHub users with advanced filters
- * @param {Object} params - Search parameters
- * @param {string} params.username - Username to search
- * @param {string} params.location - Location filter
- * @param {number} params.minRepos - Minimum repositories
- * @param {string} params.language - Primary language
- * @param {number} params.minFollowers - Minimum followers
- * @param {number} page - Page number for pagination
- * @returns {Promise<Object>} Search results
- */
-export const searchUsers = async (params, page = 1) => {
+// New advanced search function with proper API endpoint
+export const advancedSearchUsers = async (params, page = 1) => {
   try {
+    // Construct query parameters
     const queryParts = [];
     
     if (params.username) queryParts.push(`${params.username} in:login`);
@@ -38,12 +25,14 @@ export const searchUsers = async (params, page = 1) => {
     if (params.language) queryParts.push(`language:${params.language}`);
     if (params.minFollowers) queryParts.push(`followers:>=${params.minFollowers}`);
 
+    // Build complete API URL with search endpoint
     const query = queryParts.join('+');
-    const response = await axios.get(
-      `${GITHUB_API_URL}/search/users?q=${query}&page=${page}&per_page=10`
-    );
+    const apiUrl = `${GITHUB_API_URL}/search/users?q=${query}&page=${page}&per_page=10`;
+    
+    // Make the API request
+    const response = await axios.get(apiUrl);
 
-    // Get detailed info for each user
+    // Get detailed info for each user (using existing fetchUserData)
     const usersWithDetails = await Promise.all(
       response.data.items.map(async user => {
         const details = await fetchUserData(user.login);
@@ -60,7 +49,7 @@ export const searchUsers = async (params, page = 1) => {
       error: null
     };
   } catch (error) {
-    console.error('Error searching users:', error);
+    console.error('Error in advanced search:', error);
     return {
       data: null,
       totalCount: 0,
