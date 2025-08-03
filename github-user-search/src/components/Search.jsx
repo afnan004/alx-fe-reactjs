@@ -17,7 +17,7 @@ const Search = () => {
     } catch (error) {
       return {
         data: null,
-        error: "Looks like we can't find the user"
+        error: "Looks like we cant find the user"
       };
     }
   };
