@@ -321,3 +321,6 @@ body {
 .user-stats span {
   font-weight: bold;
 }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
