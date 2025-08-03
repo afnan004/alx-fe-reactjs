@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const GITHUB_API_URL = 'https://api.github.com/users?q ';
+const GITHUB_API_URL = 'https://api.github.com';
 
-// Maintain existing fetchUserData function from previous tasks
+// Keep existing fetchUserData function (unchanged from previous task)
 export const fetchUserData = async (username) => {
   try {
     const response = await axios.get(`${GITHUB_API_URL}/users/${username}`);
@@ -13,49 +13,43 @@ export const fetchUserData = async (username) => {
   }
 };
 
-// New advanced search function with proper API endpoint
-export const advancedSearchUsers = async (params, page = 1) => {
+// New function for advanced search
+export const searchGitHubUsers = async (searchParams, page = 1) => {
   try {
-    // Construct query parameters
-    const queryParts = [];
+    // Construct the search query
+    const queryParams = [];
     
-    if (params.username) queryParts.push(`${params.username} in:login`);
-    if (params.location) queryParts.push(`location:${params.location}`);
-    if (params.minRepos) queryParts.push(`repos:>=${params.minRepos}`);
-    if (params.language) queryParts.push(`language:${params.language}`);
-    if (params.minFollowers) queryParts.push(`followers:>=${params.minFollowers}`);
+    if (searchParams.username) queryParams.push(`${searchParams.username} in:login`);
+    if (searchParams.location) queryParams.push(`location:${searchParams.location}`);
+    if (searchParams.minRepos) queryParams.push(`repos:>=${searchParams.minRepos}`);
+    if (searchParams.language) queryParams.push(`language:${searchParams.language}`);
 
-    // Build complete API URL with search endpoint
-    const query = queryParts.join('+');
-    const apiUrl = `${GITHUB_API_URL}/search/users?q=${query}&page=${page}&per_page=10`;
-    
-    // Make the API request
+    // Build the complete API URL with required format
+    const queryString = queryParams.join('+');
+    const apiUrl = `https://api.github.com/search/users?q=${queryString}&page=${page}&per_page=10`;
+
     const response = await axios.get(apiUrl);
 
-    // Get detailed info for each user (using existing fetchUserData)
+    // Get detailed user data using existing fetchUserData
     const usersWithDetails = await Promise.all(
       response.data.items.map(async user => {
         const details = await fetchUserData(user.login);
-        return {
-          ...user,
-          ...details
-        };
+        return { ...user, ...details };
       })
     );
 
     return {
-      data: usersWithDetails,
+      users: usersWithDetails,
       totalCount: response.data.total_count,
       error: null
     };
   } catch (error) {
-    console.error('Error in advanced search:', error);
     return {
-      data: null,
+      users: [],
       totalCount: 0,
       error: error.response?.status === 404 
-        ? "No users found matching your criteria" 
-        : "An error occurred while searching"
+        ? "No users found matching your criteria"
+        : "Failed to search users"
     };
   }
 };
