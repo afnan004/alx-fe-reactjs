@@ -1,28 +1,37 @@
-import axios from 'axios'
+import axios from 'axios';
 
-const GITHUB_API_URL = 'https://api.github.com'
+const GITHUB_API_URL = 'https://api.github.com';
+
+export const fetchUserData = async (username) => {
+  try {
+    const response = await axios.get(`${GITHUB_API_URL}/users/${username}`);
+    return {
+      data: response.data,
+      error: null,
+    };
+  } catch (error) {
+    return {
+      data: null,
+      error: error.response?.status === 404 
+        ? 'User not found' 
+        : 'An error occurred while fetching user data',
+    };
+  }
+};
 
 export const searchUsers = async (query) => {
   try {
     const response = await axios.get(`${GITHUB_API_URL}/search/users`, {
-      params: { q: query },
-      headers: {
-        Authorization: import.meta.env.VITE_GITHUB_TOKEN ? `token ${import.meta.env.VITE_GITHUB_TOKEN}` : undefined
-      }
-    })
-    return response.data.items
+      params: { q: query }
+    });
+    return {
+      data: response.data.items,
+      error: null,
+    };
   } catch (error) {
-    console.error('Error searching users:', error)
-    return []
+    return {
+      data: null,
+      error: 'An error occurred while searching',
+    };
   }
-}
-
-export const getUserDetails = async (username) => {
-  try {
-    const response = await axios.get(`${GITHUB_API_URL}/users/${username}`)
-    return response.data
-  } catch (error) {
-    console.error('Error fetching user details:', error)
-    return null
-  }
-}
+};

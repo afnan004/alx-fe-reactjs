@@ -110,3 +110,130 @@ body {
   margin: 2rem 0;
   color: #888;
 }
+
+/* Base Styles */
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+/* App Layout */
+.app {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.app-header {
+  margin-bottom: 2rem;
+}
+
+/* Search Component */
+.github-search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.search-form {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 500px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #444;
+  border-radius: 4px;
+}
+
+.search-button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #1a1a1a;
+  border: 1px solid #444;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+
+.search-button:hover:not(:disabled) {
+  background-color: #333;
+}
+
+.search-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* User Profile */
+.user-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  border: 1px solid #444;
+  border-radius: 8px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.username a {
+  color: #646cff;
+  text-decoration: none;
+}
+
+.username a:hover {
+  text-decoration: underline;
+}
+
+.bio {
+  font-style: italic;
+  color: #aaa;
+}
+
+.stats {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+/* Status Messages */
+.status-message {
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+.status-message.error {
+  color: #ff6b6b;
+}
