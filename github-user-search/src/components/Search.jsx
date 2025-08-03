@@ -19,12 +19,12 @@ const Search = () => {
       const { data, error } = await fetchUserData(username);
       
       if (error) {
-        setError(error);
+        setError("Looks like we can't find the user"); // Exact error message
       } else {
         setUserData(data);
       }
     } catch (err) {
-      setError('An unexpected error occurred');
+      setError("Looks like we can't find the user"); // Consistent error message
     } finally {
       setLoading(false);
     }
@@ -54,9 +54,7 @@ const Search = () => {
       
       {error && (
         <p className="error-message">
-          {error === 'User not found' 
-            ? "Looks like we can't find the user" 
-            : error}
+          {error} {/* Will display "Looks like we can't find the user" */}
         </p>
       )}
 

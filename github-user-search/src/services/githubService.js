@@ -19,20 +19,19 @@ export const fetchUserData = async (username) => {
     }
   };
 
-export const searchUsers = async (query) => {
-  try {
-    const response = await axios.get(`${GITHUB_API_URL}/search/users`, {
-      params: { q: query }
-    });
-    return {
-      data: response.data.items,
-      error: null,
-    };
-  } catch (error) {
-    return {
-      data: null,
-      error: 'An error occurred while searching',
-    };
-  }
-};
+
+  export const fetchUserData = async (username) => {
+    try {
+      const response = await axios.get(`https://api.github.com/users/${username}`);
+      return {
+        data: response.data,
+        error: null,
+      };
+    } catch (error) {
+      return {
+        data: null,
+        error: "Looks like we can't find the user" // Consistent error message
+      };
+    }
+  };
 
