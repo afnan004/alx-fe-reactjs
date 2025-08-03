@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const GITHUB_API_URL = 'https://api.github.com';
+const GITHUB_API_URL = 'https://api.github.com/users?q ';
 
 // Maintain existing fetchUserData function from previous tasks
 export const fetchUserData = async (username) => {
