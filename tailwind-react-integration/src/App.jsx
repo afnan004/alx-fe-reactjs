@@ -1,3 +1,5 @@
+import UserProfile from "./components/UserProfile";
+<UserProfile />
 export default function App() {
   return (
     <main className="min-h-screen bg-gray-50 text-gray-900 flex items-center justify-center p-6">
