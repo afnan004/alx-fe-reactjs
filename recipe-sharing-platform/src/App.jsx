@@ -1,21 +1,8 @@
-function App() {
+export default function App() {
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="max-w-xl w-full p-8 rounded-2xl shadow bg-white">
-        <h1 className="text-3xl font-bold mb-4 text-center">Recipe Sharing Platform</h1>
-        <p className="text-gray-600 text-center">
-          Tailwind CSS is working if this text is styled.
-        </p>
-        <div className="flex justify-center mt-6">
-          <button
-            className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
-          >
-            Test Button
-          </button>
-        </div>
-      </div>
-    </main>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <h1 className="text-4xl font-bold text-blue-600">Recipe Sharing Platform</h1>
+      <p className="mt-4 text-lg text-gray-700">Your recipes, shared with the world!</p>
+    </div>
   );
 }
-
-export default App;
