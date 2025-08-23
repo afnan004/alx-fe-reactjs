@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "react-query";
 
 const POSTS_URL = "https://jsonplaceholder.typicode.com/posts";
 
-// Fetcher function (React Query calls this)
+// Fetcher function
 async function fetchPosts() {
   const res = await fetch(POSTS_URL);
   if (!res.ok) {
@@ -15,7 +15,6 @@ async function fetchPosts() {
 export default function PostsComponent() {
   const queryClient = useQueryClient();
 
-  // useQuery handles loading, error, caching, re-fetching, etc.
   const {
     data: posts,
     isLoading,
@@ -24,8 +23,10 @@ export default function PostsComponent() {
     isFetching,
     refetch,
   } = useQuery("posts", fetchPosts, {
-    // (defaults also set in QueryClient, but you can override here if needed)
-    // staleTime: 30_000,
+    // 👇 Required explicit options
+    cacheTime: 5 * 60 * 1000,      // keep cached data 5 minutes
+    refetchOnWindowFocus: false,   // don’t auto refetch when window regains focus
+    keepPreviousData: true,        // show old data while refetching
   });
 
   return (
@@ -38,9 +39,7 @@ export default function PostsComponent() {
       }}
     >
       <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-        <h2 style={{ fontSize: 18, fontWeight: 700, marginRight: 8 }}>
-          Posts
-        </h2>
+        <h2 style={{ fontSize: 18, fontWeight: 700, marginRight: 8 }}>Posts</h2>
 
         <button
           onClick={() => refetch()}
