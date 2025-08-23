@@ -1,4 +1,3 @@
-// src/components/PostsComponent.jsx
 import { useQuery, useQueryClient } from "react-query";
 
 const POSTS_URL = "https://jsonplaceholder.typicode.com/posts";
@@ -23,10 +22,11 @@ export default function PostsComponent() {
     isFetching,
     refetch,
   } = useQuery("posts", fetchPosts, {
-    // 👇 Required explicit options
-    cacheTime: 5 * 60 * 1000,      // keep cached data 5 minutes
-    refetchOnWindowFocus: false,   // don’t auto refetch when window regains focus
-    keepPreviousData: true,        // show old data while refetching
+    // 👇 all required options here
+    cacheTime: 5 * 60 * 1000,      // cache kept for 5 minutes
+    staleTime: 30 * 1000,          // data considered fresh for 30 seconds
+    refetchOnWindowFocus: false,   // no auto refetch on focus
+    keepPreviousData: true,        // keep old data visible during refetch
   });
 
   return (
