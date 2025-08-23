@@ -1,17 +1,40 @@
+// src/components/RegistrationForm.jsx
 import { useState } from "react";
 
 function RegistrationForm() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitted:", { username, email, password });
+
+    // validation logic inline
+    let newErrors = {};
+    if (!username) {
+      newErrors.username = "Username is required";
+    }
+    if (!email) {
+      newErrors.email = "Email is required";
+    }
+    if (!password) {
+      newErrors.password = "Password is required";
+    }
+
+    setErrors(newErrors);
+
+    // stop if there are errors
+    if (Object.keys(newErrors).length > 0) return;
+
+    console.log("Form submitted:", { username, email, password });
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4 shadow bg-white rounded">
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-md mx-auto p-4 shadow bg-white rounded"
+    >
       <h2 className="text-xl font-bold mb-4">Registration Form</h2>
 
       {/* Username */}
@@ -20,10 +43,13 @@ function RegistrationForm() {
         <input
           type="text"
           name="username"
-          value={username}          // ✅ controlled value
-          onChange={(e) => setUsername(e.target.value)}  // ✅ controlled change
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           className="border p-2 w-full"
         />
+        {errors.username && (
+          <p className="text-red-500 text-sm">{errors.username}</p>
+        )}
       </div>
 
       {/* Email */}
@@ -32,10 +58,13 @@ function RegistrationForm() {
         <input
           type="email"
           name="email"
-          value={email}             // ✅ controlled value
-          onChange={(e) => setEmail(e.target.value)}  // ✅ controlled change
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           className="border p-2 w-full"
         />
+        {errors.email && (
+          <p className="text-red-500 text-sm">{errors.email}</p>
+        )}
       </div>
 
       {/* Password */}
@@ -44,13 +73,19 @@ function RegistrationForm() {
         <input
           type="password"
           name="password"
-          value={password}          // ✅ controlled value
-          onChange={(e) => setPassword(e.target.value)}  // ✅ controlled change
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           className="border p-2 w-full"
         />
+        {errors.password && (
+          <p className="text-red-500 text-sm">{errors.password}</p>
+        )}
       </div>
 
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
+      <button
+        type="submit"
+        className="bg-blue-600 text-white px-4 py-2 rounded"
+      >
         Register
       </button>
     </form>
